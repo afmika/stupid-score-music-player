@@ -4,9 +4,9 @@
  */
 
 const audioContext = new (window.AudioContext || window.webkitAudioContext) ();
-const volume = 0.3; // between 0 and 1
-const default_waveform_type = 'triangle';
-const base_tempo_sec = 0.5; // 1/8, 1/4, 1/2 will be computed based on this value
+const volume = 0.2; // between 0 and 1
+const default_waveform_type = 'sine'; // sine, square, sawtooth, triangle ?
+const base_tempo_sec = 0.4; // 1/8, 1/4, 1/2 will be computed based on this value
 
 // main gain node setup
 const mainGainNode = audioContext.createGain();
@@ -15,7 +15,7 @@ mainGainNode.gain.value = volume;
 
 const note_map = 'CDEFGAB';
 const ratio_map = {
-    'SS' : 1 / 4, // 
+    'SS' : 1 / 4,
     'S' : 1 / 2,
     'M' : 3 / 4, 
     'L' : 1
@@ -25,7 +25,7 @@ function parseDatas () {
     let result = [];
     let notes = datas_notes
                     .replace(/[ \t]+/g, '')
-                    .split(/[\n\r]+/g);
+                    .split(/[\n\r/]+/g);
     for (let note of notes) {
         let [code, len_str] = note.split(':');
         if (len_str) {

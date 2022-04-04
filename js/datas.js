@@ -39,10 +39,10 @@ const note_oct = {
 };
 
 /**
- * Love Live Nijigasaki HS 
- * Lanzhu Zhong - Eutopia
+ * Sample based on 
+ * Lanzhu Zhong - Eutopia (Love Live Nijigasaki HS)
  * 
- * I aint't much but it's honest work.
+ * I ain't much but it's honest work.
  */ 
 const datas_notes = `
     4   : L
@@ -69,11 +69,11 @@ const datas_notes = `
     4   : M
     1.  : M
     1.  : S
-    1.  : S
-    1.  : S
+    1.  : SS
+    1.  : SS
     #6  : S
     #6  : S
     #6  : S
-    #5  : S
+    #5  : SS
     #5  : S
 `;
