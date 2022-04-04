@@ -35,7 +35,7 @@ function parseDatas () {
 
             if (valid.test (code)) {
                 octave = code.endsWith ('.') ? '4' : '3';
-                let index = code.match (/[1-7]/).shift();
+                let index = code.match (valid).shift();
                 note_final = note_map [ -1 + parseInt(index) ];
                 if (code.includes('#')) note_final += '#';
             }
