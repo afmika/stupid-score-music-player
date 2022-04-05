@@ -5,7 +5,7 @@
 
 const audioContext = new (window.AudioContext || window.webkitAudioContext) ();
 const volume = 0.2; // between 0 and 1
-const default_waveform_type = 'sine'; // sine, square, sawtooth, triangle ?
+const default_waveform_type = 'triangle'; // sine, square, sawtooth, triangle ?
 const base_tempo_sec = 0.4; // 1/8, 1/4, 1/2 will be computed based on this value
 
 // main gain node setup
@@ -45,6 +45,15 @@ function parseDatas () {
                 octave : octave,
                 ratio : ratio,
                 orig : note
+            });
+
+            // forced silence
+            result.push ({
+                note : null,
+                octave : null,
+                ratio : 0.1,
+                orig : null,
+                forced_sil : true
             });
         }
     }

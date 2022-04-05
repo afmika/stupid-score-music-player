@@ -41,7 +41,6 @@ const note_oct = {
 /**
  * Sample based on 
  * Lanzhu Zhong - Eutopia (Love Live Nijigasaki HS)
- * 
  * I ain't much but it's honest work.
  */ 
 const datas_notes = `
@@ -52,28 +51,121 @@ const datas_notes = `
     1.  : S
     #1. : S
     1.  : S
-        : SS
+    : SS
     4   : L
     1.  : S
     1.  : S
     #6  : M
     #1. : M
     1.  : S
-        : SS
+    : SS
     4   : L
     1.  : S
     1.  : S
-    #6  : S
-    #1. : S
+    #6  : L
+    #1. : L
     1.  : S
-    4   : M
+
+    4 : S
+    1. : S
+    : SS
+
+    4 : L
+    4 : M
+    4 : S
+    1. : L
+    #6 : S
+    #6 : M
+    #5 : S
+    #5 : M
+    : SS
+    4 : S
+    4 : S
+    4 : S
+    1. : M
+    #6 : S
+    #6 : M
+    #5 : S
+    1. : S
+    : SS
+
+    #5 : L
+    #5 : M
+    #6 : S
+    1. : M
+    #6 : L
+    #5 : L
+    #5 : M
+    #4 : L
+    #5 : M
+    #5 : M
+    #5 : M
+    : SS
+    4  : L
+    #2. : M
     1.  : M
-    1.  : S
-    1.  : SS
-    1.  : SS
-    #6  : S
-    #6  : S
-    #6  : S
-    #5  : SS
-    #5  : S
+    #6 : S
+    #6 : M
+    #5 : S
+    #5 : M
+
+    : SS
+    4 : L
+    #5 : M
+    #6 : M
+    1. : L
+    : SS
+    #6 : L
+    : L
+    #1. : L
+    : SS
+    1. : M
+    : SS
+    1. : M
+
+    #5 : L
+    5  : M
+    #5 : L
+    #5 : M
+    #1 : S
+    : M
+    #5 : L
+    5  : M
+    #5 : L
+    #5 : M
+    #2 : S
+    : M
+    #5 : L
+    5  : M
+    #5 : L
+    #5 : M
+
+    : S
+    4 : L
+    #5 : M
+    #6 : M
+    1. : M
+    #6 : S
+    #6 : S
+    #5 : S
+    #5 : S
+    
+    #5 : L
+    5  : M
+    #5 : L
+    #5 : M
+    #1 : S
+    : M
+    #5 : L
+    5  : M
+    #5 : L
+    #5 : M
+    #2 : S
+    : M
+    #5 : L
+    5  : M
+    #5 : L
+    #5 : M
+    : S
 `;
+
