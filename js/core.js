@@ -13,7 +13,7 @@ const mainGainNode = audioContext.createGain();
 mainGainNode.connect(audioContext.destination);
 mainGainNode.gain.value = volume;
 
-const note_map = 'CDEFGAB';
+const note_map = 'CDEFGAB_';
 const ratio_map = {
     'SS' : 1 / 4,
     'S' : 1 / 2,
@@ -26,34 +26,27 @@ function parseDatas () {
     let notes = datas_notes
                     .replace(/[ \t]+/g, '')
                     .split(/[\n\r/]+/g);
+
     for (let note of notes) {
         let [code, len_str] = note.split(':');
         if (len_str) {
             const ratio = ratio_map [len_str] || ratio_map['M'];
             let valid = /[1-7]/;
             let octave = null, note_final = null;
-
+            let silent = code.startsWith('_');
             if (valid.test (code)) {
                 octave = code.endsWith ('.') ? '4' : '3';
+                // index 7 for a 'forced' silent note
                 let index = code.match (valid).shift();
                 note_final = note_map [ -1 + parseInt(index) ];
                 if (code.includes('#')) note_final += '#';
             }
-
+            
             result.push ({
                 note : note_final,
                 octave : octave,
                 ratio : ratio,
                 orig : note
-            });
-
-            // forced silence
-            result.push ({
-                note : null,
-                octave : null,
-                ratio : 0.1,
-                orig : null,
-                forced_sil : true
             });
         }
     }

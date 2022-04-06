@@ -6,6 +6,9 @@
 // octave => {[note : freq]}
 // personal choices
 const note_oct = {
+    '_MADE_UP_' : {
+        '_' : 100
+    },
     // octave 3
     '3' : {
         'C' : 130.812782650299317,
@@ -65,7 +68,7 @@ const datas_notes = `
     #6  : L
     #1. : L
     1.  : S
-
+    : S
     4 : S
     1. : S
     : SS
@@ -97,7 +100,6 @@ const datas_notes = `
     #5 : L
     #5 : M
     #4 : L
-    #5 : M
     #5 : M
     #5 : M
     : SS
@@ -149,6 +151,7 @@ const datas_notes = `
     #6 : S
     #5 : S
     #5 : S
+    : M
     
     #5 : L
     5  : M

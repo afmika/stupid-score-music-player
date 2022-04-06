@@ -6,7 +6,7 @@ function customRound (n) {
 function convertDatasToBasicCoordinate () {
     const parsed_list = parseDatas ();
     let base_dist = 20;
-    let y_scale = 2;
+    let y_scale = 20;
     let offset = 0;
     let max_y = -Infinity;
 
@@ -21,25 +21,10 @@ function convertDatasToBasicCoordinate () {
         max_y = Math.max(max_y, y_value);
         
         offset = x_value;
-        // return {
-        //     pos : [... [x_value, y_value].map(customRound) ],
-        //     silent : curr.forced_sil
-        // };
         return [x_value, y_value].map(customRound);
     });
+
     return ans;
-    
-    // console.log('max', max_y);
-    // let silent_height = max_y / 2;
-    // let final_ans = [];
-    // // fix forced silence scale
-    // for (let item of ans) {
-    //     let [x, y] = item.pos;
-    //     if (item.silent)
-    //         y += 0;
-    //     final_ans.push ([x, y]);
-    // }
-    // return final_ans;
 }
 
 // example
@@ -58,11 +43,43 @@ function constructRelativeHeight () {
     return res;
 }
 
+function constructNoteWithAbsFunction () {
+    let temp = parseDatas().map(it => {
+        if (it.note == null) return 'R'; // rest
+        if (it.octave == '4')
+            it.note = '(130/12)+' + it.note; // NO DOTS !!
+        it.note = it.note.replace(/[#.]/g, '');
+        return it.note + (it.note.includes('D') ? '_1' : '')+ (it.note.includes('#') ? '_s' : '')
+    });
+    let res = [];
+    for (let note of temp) {
+        res.push(note)
+        res.push ('R');
+    }
+    return res;
+}
+
 console.log(
     '[' +
     constructRelativeHeight ().map(v => {
             const [x, y] = v;
             return `(${x}, ${y})`;
         }).join(', ')
+    + ']'
+)
+
+
+console.log(
+    '[' +
+    convertDatasToBasicCoordinate ().map(v => {
+            const [x, y] = v;
+            return `(${x}, ${y})`;
+        }).join(', ')
+    + ']'
+)
+
+console.log(
+    '[' +
+    constructNoteWithAbsFunction ()
     + ']'
 )
