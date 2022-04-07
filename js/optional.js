@@ -3,33 +3,8 @@ function customRound (n) {
     return Math.round(n * d) / d;
 }
 
-function convertDatasToBasicCoordinate () {
-    const parsed_list = parseDatas ();
-    let base_dist = 20;
-    let y_scale = 20;
-    let offset = 0;
-    let max_y = -Infinity;
-
-    let ans = parsed_list.map (curr => {
-        const {octave, note} = curr;
-        // x value
-        let delta =  base_dist * curr.ratio;
-        let x_value = offset + delta;
-        // y value
-        let y_value = octave ? note_oct[octave][note] : 0;
-        y_value /= y_scale;
-        max_y = Math.max(max_y, y_value);
-        
-        offset = x_value;
-        return [x_value, y_value].map(customRound);
-    });
-
-    return ans;
-}
-
 // example
-function constructRelativeHeight () {
-    let coords = convertDatasToBasicCoordinate ();
+function constructRelativeHeight (coords) {
     // assuming 0 is the lowest y value
     let first = [0, 0];
     coords = [first, ... coords];
@@ -44,42 +19,69 @@ function constructRelativeHeight () {
 }
 
 function constructNoteWithAbsFunction () {
-    let temp = parseDatas().map(it => {
-        if (it.note == null) return 'R'; // rest
-        if (it.octave == '4')
-            it.note = '(130/12)+' + it.note; // NO DOTS !!
-        it.note = it.note.replace(/[#.]/g, '');
-        return it.note + (it.note.includes('D') ? '_1' : '')+ (it.note.includes('#') ? '_s' : '')
+    let temp = parseDatas().map(item => {
+        if (item.note == null) return 'S'; // rest
+        if (item.octave == '4')
+            item.note = '2' + item.note; // NO DOTS !!
+        let letter = item.note.replace(/[#.]/g, '');
+        let copy = letter + (item.note.includes('#') ? '_s' : '');
+        const max = (1 / ratio_map['SS']);
+        let how_many_times = Math.round(max * item.ratio);
+        let arr = new Array(how_many_times).fill(copy);
+        return arr;
     });
     let res = [];
-    for (let note of temp) {
-        res.push(note)
-        res.push ('R');
+    for (let arr of temp) {
+        res.push(...arr);
+        res.push('S_0'); // forced silence
     }
-    return res;
+    return res; // auto flattened by console.log btw
 }
 
+// F, F, F, S, F, F, C_s, ...etc
+function makeHeightsFromString (list) {
+    let scale = 2;
+    return list.map (str => {
+        if (str.includes('S')) return 0; // S or S_0
+        str = str.replace ('_s', '#');
+        // example 2C_s, 2*B, 2F
+        let oct = str.includes('2') ? '4' : '3';
+        str = str.replace (/2|2\*/, '');
+        return note_oct[oct][str] / scale;
+    });
+}
+
+function buildCoords (heights) {
+    let dx = 1, x = 0;
+    let coords = heights.map(y => {
+        x += dx;
+        return [x, y].map(customRound);
+    });
+    return coords;
+}
+
+function relativeHeightBasedOnLetters () {
+    const heights = makeHeightsFromString (constructNoteWithAbsFunction ());
+    let coords = buildCoords (heights);
+    return constructRelativeHeight (coords);
+}
+
+
+const sample_heights = makeHeightsFromString (constructNoteWithAbsFunction ());
 console.log(
-    '[' +
-    constructRelativeHeight ().map(v => {
-            const [x, y] = v;
-            return `(${x}, ${y})`;
-        }).join(', ')
+    '[' + sample_heights.map(customRound)
+        // buildCoords(sample_heights).map(v => {
+        //     const [x, y] = v;
+        //     return `(${x}, ${y})`;
+        // })
     + ']'
 )
 
-
 console.log(
     '[' +
-    convertDatasToBasicCoordinate ().map(v => {
+        relativeHeightBasedOnLetters ().map(v => {
             const [x, y] = v;
             return `(${x}, ${y})`;
         }).join(', ')
-    + ']'
-)
-
-console.log(
-    '[' +
-    constructNoteWithAbsFunction ()
     + ']'
 )

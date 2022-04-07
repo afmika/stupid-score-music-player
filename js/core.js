@@ -33,7 +33,7 @@ function parseDatas () {
             const ratio = ratio_map [len_str] || ratio_map['M'];
             let valid = /[1-7]/;
             let octave = null, note_final = null;
-            let silent = code.startsWith('_');
+
             if (valid.test (code)) {
                 octave = code.endsWith ('.') ? '4' : '3';
                 // index 7 for a 'forced' silent note

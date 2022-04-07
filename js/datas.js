@@ -10,6 +10,11 @@ const note_oct = {
         '_' : 100
     },
     // octave 3
+    // fundamental freq = f0 = 130.8 = C
+    // Th 1. half-step : fn+1 ~ 2^(1/12) * fn => fn = 2^(n/12) * f0
+    // Th 2. freq note X current octave = 2 * (freq note X previous octave)
+    //  => 1 full octave means we have done (2^(1/12)) 12 times (hence the multiplicator is 2)
+    // [Note] 16/15 is a good rational close to 2^(1/12)
     '3' : {
         'C' : 130.812782650299317,
         'C#' : 138.591315488436048,
